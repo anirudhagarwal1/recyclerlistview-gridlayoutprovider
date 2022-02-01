@@ -35,6 +35,7 @@ export class GridLayoutManager extends WrapGridLayoutManager {
     }
   }
 
+  // This was commented to make nonDeterministic work!
   // public overrideLayout(index: number, dim: Dimension): boolean {
   //   // we are doing this because - when we provide decimal dimensions for a
   //   // certain cell - the onlayout returns a different dimension in certain high end devices.
