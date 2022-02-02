@@ -6,5 +6,6 @@ export declare class GridLayoutManager extends WrapGridLayoutManager {
     private _renderWindowSize;
     private _acceptableRelayoutDelta;
     constructor(layoutProvider: LayoutProvider, renderWindowSize: Dimension, getSpan: (index: number) => number, maxSpan: number, acceptableRelayoutDelta: number, isHorizontal?: boolean, cachedLayouts?: Layout[]);
+    overrideLayout(index: number, dim: Dimension): boolean;
     getStyleOverridesForIndex(index: number): object | undefined;
 }

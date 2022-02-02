@@ -38,34 +38,36 @@ var GridLayoutManager = /** @class */ (function (_super) {
         }
         return _this;
     }
-    // public overrideLayout(index: number, dim: Dimension): boolean {
-    //   // we are doing this because - when we provide decimal dimensions for a
-    //   // certain cell - the onlayout returns a different dimension in certain high end devices.
-    //   // This causes the layouting to behave weirdly as the new dimension might not adhere to the spans and the cells arrange themselves differently
-    //   // So, whenever we have layouts for a certain index, we explicitly override the dimension to those very layout values
-    //   // and call super so as to set the overridden flag as true
-    //   const layout = this.getLayouts()[index];
-    //   const heightDiff = Math.abs(dim.height - layout.height);
-    //   const widthDiff = Math.abs(dim.width - layout.width);
-    //   if (layout) {
-    //     if (this._isGridHorizontal) {
-    //       if (heightDiff < this._acceptableRelayoutDelta) {
-    //         if (widthDiff === 0) {
-    //           return false;
-    //         }
-    //         dim.height = layout.height;
-    //       }
-    //     } else {
-    //       if (widthDiff < this._acceptableRelayoutDelta) {
-    //         if (heightDiff === 0) {
-    //           return false;
-    //         }
-    //         dim.width = layout.width;
-    //       }
-    //     }
-    //   }
-    //   return super.overrideLayout(index, dim);
-    // }
+    // This was commented to make nonDeterministic work!
+    GridLayoutManager.prototype.overrideLayout = function (index, dim) {
+        // we are doing this because - when we provide decimal dimensions for a
+        // certain cell - the onlayout returns a different dimension in certain high end devices.
+        // This causes the layouting to behave weirdly as the new dimension might not adhere to the spans and the cells arrange themselves differently
+        // So, whenever we have layouts for a certain index, we explicitly override the dimension to those very layout values
+        // and call super so as to set the overridden flag as true
+        var layout = this.getLayouts()[index];
+        var heightDiff = Math.abs(dim.height - layout.height);
+        var widthDiff = Math.abs(dim.width - layout.width);
+        if (layout) {
+            if (this._isGridHorizontal) {
+                if (heightDiff < this._acceptableRelayoutDelta) {
+                    if (widthDiff === 0) {
+                        return false;
+                    }
+                    dim.height = layout.height;
+                }
+            }
+            else {
+                if (widthDiff < this._acceptableRelayoutDelta) {
+                    if (heightDiff === 0) {
+                        return false;
+                    }
+                    dim.width = layout.width;
+                }
+            }
+        }
+        return _super.prototype.overrideLayout.call(this, index, dim);
+    };
     GridLayoutManager.prototype.getStyleOverridesForIndex = function (index) {
         var columnSpanForIndex = this._getSpan(index);
         return this._isGridHorizontal
